@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const campsiteRouter = require('./routes/campsiteRouter');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -10,11 +11,22 @@ app.use(morgan('dev'));
 //adds middleware to parse json data to js
 app.use(express.json());
 
+//adding router
+app.use('/campsites', campsiteRouter);
+
+
+/*
+moved to router
 //support for RESTAPI
 app.all('/campsites', (req, res, next) => {
     res.statusCode = 200;
     res.header = ('Content-Type', 'text/plain');
     next();
+});
+
+//endpoint for next function. no next is needed b/c this is the last route
+app.get('/campsites', (req, res) => {
+    res.end('Will send all the campsites to you.'); 
 });
 
 //post request using json data
@@ -30,6 +42,7 @@ app.put('/campsites', (req, res) => {
 app.delete('/campsites', (req, res) => {
     res.end('Deleting all campsites');
 });
+*/
 
 app.get('/campsites/:campsiteId', (req, res) => {
     res.end(`Will send details of the campsite: ${req.params.campsiteId} to you.`);
@@ -49,10 +62,7 @@ app.put('/campsites/:campsiteId', (req, res) => {
 app.delete('/campsite/:campsiteId', (req, res) => {
     res.end(`Deleting campsite: ${req.params.campsiteId}`);
 });
-//endpoint for next function. no next is needed b/c this is the last route
-app.get('/campsites', (req, res) => {
-    res.end('Will send all the campsites to you.'); 
-});
+
 
 //set up express to serve files from the public folder
 app.use(express.static(__dirname + '/public'));
