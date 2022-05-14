@@ -1,6 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const campsiteRouter = require('./routes/campsiteRouter');
+const partnerRouter = require('./routes/partnerRouter');
+const promotionRouter = require('./routes/promotionRouter');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -13,6 +15,12 @@ app.use(express.json());
 
 //adding router
 app.use('/campsites', campsiteRouter);
+
+//adding router for promotions
+app.use('/promotions', promotionRouter);
+
+//adding router for partners
+app.use('/partners', partnerRouter);
 
 
 /*
@@ -43,7 +51,8 @@ app.delete('/campsites', (req, res) => {
     res.end('Deleting all campsites');
 });
 */
-
+/*
+Sat move
 app.get('/campsites/:campsiteId', (req, res) => {
     res.end(`Will send details of the campsite: ${req.params.campsiteId} to you.`);
 });
@@ -62,6 +71,7 @@ app.put('/campsites/:campsiteId', (req, res) => {
 app.delete('/campsite/:campsiteId', (req, res) => {
     res.end(`Deleting campsite: ${req.params.campsiteId}`);
 });
+*/
 
 
 //set up express to serve files from the public folder
